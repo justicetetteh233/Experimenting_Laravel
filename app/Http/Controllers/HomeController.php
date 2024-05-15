@@ -27,14 +27,15 @@ class HomeController extends Controller
      */
     public function index(): View | Response | RedirectResponse
     {
-        if(Auth::user()->user_type == 'electoralCommissioner'){
-            return redirect(route('members.index'));          
-        }
-        elseif(Auth::user()->user_type == 'candidate'){
-            return redirect(route('members.index'));
-        }
-        elseif(Auth::user()->user_type == 'voter'){
-            return response('voter');
-        }
+        // if(Auth::user()->user_type == 'electoralCommissioner'){
+        //     return redirect(route('members.index'));
+        // }
+        // elseif(Auth::user()->user_type == 'candidate'){
+        //     return redirect(route('members.index'));
+        // }
+        // elseif(Auth::user()->user_type == 'voter'){
+        //     return response('voter');
+        // }
+        return redirect(route('members.index'));
     }
 }

@@ -63,14 +63,14 @@
 
                         <div class="row mb-3">
                             <label for="user_type" class="col-md-4 col-form-label text-md-end">{{ __('User Type') }}</label>
-                        
+
                             <div class="col-md-6">
                                 <select id="user_type" class="form-select @error('user_type') is-invalid @enderror" name="user_type" required>
-                                    <option value="electoralCommissioner" {{ old('user_type') == 'electoralCommissioner' ? 'selected' : '' }}>Electoral Commissioner</option>
-                                    <option value="candidate" {{ old('user_type') == 'candidate' ? 'selected' : '' }}>Candidate</option>
-                                    <option value="voter" {{ old('user_type') == 'voter' ? 'selected' : '' }}>Voter</option>
+                                    <option value="Executive Commissioner" {{ old('user_type') == 'Executive Commissioner' ? 'selected' : '' }}>Electoral Commissioner</option>
+                                    <option value='Deputy Commission' {{ old('user_type') == 'Deputy Commission' ? 'selected' : '' }}>Deputy Commission</option>
+                                    <option value="Registerer" {{ old('user_type') == 'Registerer' ? 'selected' : '' }}>Registerer</option>
                                 </select>
-                        
+
                                 @error('user_type')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -81,10 +81,10 @@
 
                         <div class="row mb-3">
                             <label for="picture" class="col-md-4 col-form-label text-md-end">{{ __('Picture') }}</label>
-                        
+
                             <div class="col-md-6">
                                 <input id="picture" type="file" class="form-control @error('picture') is-invalid @enderror" name="picture" accept="image/*" required>
-                        
+
                                 @error('picture')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -92,8 +92,8 @@
                                 @enderror
                             </div>
                         </div>
-                        
-                        
+
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'picture' => 'nullable|image|mimes:png,jpeg,jpg',
-            'user_type' => ['required', 'in:electoralCommissioner,candidate,voter'],
+            'user_type' => ['required', 'in:Executive Commissioner, Deputy Commission,Registerer'],
         ]);
     }
 
@@ -66,21 +66,72 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $picture_path = null;
 
-        if ($data['picture']) {
-            $file = $data['picture'];
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $picturePath = $file->storeAs('uploads', $fileName, 'public'); 
-            $picture_path = $picturePath; 
+        if(User::count()===0 ){
+            // dd('no user');
+            if($data['user_type'] != 'Executive Commissioner'){
+                dd('not a commissioner');
+                return redirect()->back()->with('error', 'YOU HAVE TO BE AN ELECTORAL COMMISSIONER');
+
+            }else{
+                // dd('a commissioner');
+                $picture_path = null;
+                if ($data['picture']) {
+                    $file = $data['picture'];
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $picturePath = $file->storeAs('uploads', $fileName, 'public');
+                    $picture_path = $picturePath;
+                }
+
+                return User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'user_type'=> $data['user_type'],
+                    'picture_path'=> $picture_path
+                ])->assignRole('Executive Commissioner');
+
+            }
+
+        }else{
+            if(!(auth()->user()->hasPermissionTo('create Commissioner'))){
+                abort(403);
+            }else{
+
+                $picture_path = null;
+                if ($data['picture']) {
+                    $file = $data['picture'];
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $picturePath = $file->storeAs('uploads', $fileName, 'public');
+                    $picture_path = $picturePath;
+                }
+
+                return User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'user_type'=> $data['user_type'],
+                    'picture_path'=> $picture_path
+                ]);
+            }
         }
 
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'user_type'=> $data['user_type'],
-            'picture_path'=> $picture_path
-        ]);
+
+        // $picture_path = null;
+        // if ($data['picture']) {
+        //     $file = $data['picture'];
+        //     $fileName = time() . '_' . $file->getClientOriginalName();
+        //     $picturePath = $file->storeAs('uploads', $fileName, 'public');
+        //     $picture_path = $picturePath;
+        // }
+
+        // return User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        //     'user_type'=> $data['user_type'],
+        //     'picture_path'=> $picture_path
+        // ]);
+
     }
 }

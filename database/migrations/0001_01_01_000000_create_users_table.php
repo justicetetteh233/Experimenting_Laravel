@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('user_type', ['electoralCommissioner', 'candidate', 'voter'])->default('voter');
+            $table->enum('user_type', ['Executive Commissioner', 'Deputy Commissioner', 'Registerer'])->default('Registerer');
             $table->string('picture_path')->nullable();
             $table->rememberToken();
             $table->timestamps();
