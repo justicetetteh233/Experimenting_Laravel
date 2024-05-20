@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    @include('vote.patials.topNavBar')
+    {{-- @include('vote.patials.topNavBar') --}}
 
     <!-- Button to trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCandidateModal">
@@ -96,7 +96,7 @@
                             <div class="col-md-6">
                                 <select id="positions_id" class="form-select" name="positions_id" required>
                                     @foreach ($positions as  $position)
-                                    <option value="{{$position->id}}">{{$position->name}}</option>  
+                                    <option value="{{$position->id}}">{{$position->name}}</option>
                                     @endforeach
                                 </select>
                                 @error('user_type')
@@ -118,8 +118,8 @@
                                 @enderror
                             </div>
                         </div>
-                        
-                        
+
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -164,8 +164,8 @@
                                 </style>
                                 <img src="{{ asset('storage/' . $candidate->picture_path) }}" alt="candidate Picture" class="candidate-picture">
                             </td>
-                            
-                            
+
+
                             <td>{{ $candidate->name }}</td>
                             <td>{{ $candidate->email }}</td>
                             <td>{{ $candidate->position->name }}</td>
@@ -187,7 +187,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </div>
-                                
+
                             </td>
                         </tr>
                         @endforeach

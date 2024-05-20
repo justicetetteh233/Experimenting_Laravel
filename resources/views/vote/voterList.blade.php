@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    @include('vote.patials.topNavBar')
+    {{-- @include('vote.patials.topNavBar') --}}
 
     <!-- Button to trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createVoterModal">
@@ -102,8 +102,8 @@
                                 @enderror
                             </div>
                         </div>
-                        
-                        
+
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -147,8 +147,8 @@
                                 </style>
                                 <img src="{{ asset('storage/' . $voter->picture_path) }}" alt="Voter Picture" class="voter-picture">
                             </td>
-                            
-                            
+
+
                             <td>{{ $voter->name }}</td>
                             <td>{{ $voter->email }}</td>
                             <td>{{ $voter->user_type }}</td>
@@ -169,7 +169,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </div>
-                                
+
                             </td>
                         </tr>
                         @endforeach

@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Candidate;
+use App\Models\Position;
+use App\Models\Voter;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class HomeController extends Controller
 {
@@ -27,6 +34,35 @@ class HomeController extends Controller
      */
     public function index(): View | Response | RedirectResponse
     {
+        // if(Auth::user()->hasRole('Executive Commissioner')){
+
+        //     return view('vote.electoralCommissionersLandingPage',[
+        //         'commissioners' => User::all(),
+        //         "user" => Auth::user(),
+        //         'voters' => Voter::with('user')->latest()->get(),
+        //         'positions'=>Position::with('user')->latest()->get(),
+        //         'candidates' => Candidate::with('user','position')->latest()->get(),
+        //     ]);
+        // }
+        // return redirect(route('members.index'));
+
+        return view('vote.electoralCommissionersLandingPage',[
+            'commissioners' => User::all(),
+            "user" => Auth::user(),
+            'voters' => Voter::with('user')->latest()->get(),
+            'positions'=>Position::with('user')->latest()->get(),
+            'candidates' => Candidate::with('user','position')->latest()->get(),
+            'roles' => Role::all(),
+            'permissions' => Permission::all(),
+        ]);
+
+
+
+
+
+
+
+
         // if(Auth::user()->user_type == 'electoralCommissioner'){
         //     return redirect(route('members.index'));
         // }
@@ -36,6 +72,6 @@ class HomeController extends Controller
         // elseif(Auth::user()->user_type == 'voter'){
         //     return response('voter');
         // }
-        return redirect(route('members.index'));
+        // return redirect(route('members.index'));
     }
 }

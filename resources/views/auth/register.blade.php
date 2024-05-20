@@ -67,7 +67,7 @@
                             <div class="col-md-6">
                                 <select id="user_type" class="form-select @error('user_type') is-invalid @enderror" name="user_type" required>
                                     <option value="Executive Commissioner" {{ old('user_type') == 'Executive Commissioner' ? 'selected' : '' }}>Electoral Commissioner</option>
-                                    <option value='Deputy Commission' {{ old('user_type') == 'Deputy Commission' ? 'selected' : '' }}>Deputy Commission</option>
+                                    <option value='Deputy Commissioner' {{ old('user_type') == 'Deputy Commissioner' ? 'selected' : '' }}>Deputy Commission</option>
                                     <option value="Registerer" {{ old('user_type') == 'Registerer' ? 'selected' : '' }}>Registerer</option>
                                 </select>
 
