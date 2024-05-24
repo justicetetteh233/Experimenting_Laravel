@@ -31,17 +31,44 @@ Route::get('/', function () {
     return $jobs;
 });
 
-Route::get('/permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
-Route::post('/permissions', [PermissionController::class, 'store'])->name('permissions.store');
+Route::get('/permissions/create', [PermissionController::class, 'create'])
+    ->name('permissions.create')
+    ->middleware(['permission:edit Commissioner']);
 
-Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
-Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 
-Route::get('/manage_roles', [ManageRolesController::class, 'manageRoles'])->name('manage_roles.manage');
-Route::post('/manage_roles', [ManageRolesController::class, 'updateRolePermissions'])->name('manage_roles.update');
 
-Route::get('/manage_user_roles', [UserRoleController::class, 'manageUserRoles'])->name('manage_user_roles.manage');
-Route::post('/manage_user_roles', [UserRoleController::class, 'updateUserRoles'])->name('manage_user_roles.update');
+
+Route::post('/permissions', [PermissionController::class, 'store'])
+    ->name('permissions.store')
+    ->middleware(['permission:edit Commissioner']);
+
+
+Route::get('/roles/create', [RoleController::class, 'create'])
+    ->name('roles.create')
+    ->middleware(['permission:edit Commissioner']);
+
+Route::post('/roles', [RoleController::class, 'store'])
+    ->name('roles.store')
+    ->middleware(['permission:edit Commissioner']);
+
+
+Route::get('/manage_roles', [ManageRolesController::class, 'manageRoles'])
+    ->name('manage_roles.manage')
+    ->middleware(['permission:edit Commissioner']);
+
+Route::post('/manage_roles', [ManageRolesController::class, 'updateRolePermissions'])
+    ->name('manage_roles.update')
+    ->middleware(['permission:edit Commissioner']);
+
+
+Route::get('/manage_user_roles', [UserRoleController::class, 'manageUserRoles'])
+    ->name('manage_user_roles.manage');
+    // ->middleware(['permission:edit Commissioner']);
+
+Route::post('/manage_user_roles', [UserRoleController::class, 'updateUserRoles'])
+    ->name('manage_user_roles.update');
+    // ->middleware(['permission:edit Commissioner']);
+
 
 Auth::routes();
 

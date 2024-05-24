@@ -13,6 +13,8 @@ use App\Models\Position;
 use App\Models\Voter;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Laravel\Sanctum\HasApiTokens;
+
 
 
 class HomeController extends Controller
@@ -49,6 +51,7 @@ class HomeController extends Controller
         return view('vote.electoralCommissionersLandingPage',[
             'commissioners' => User::all(),
             "user" => Auth::user(),
+            "api_token" => Auth::user()->createToken('api-token')->plainTextToken,
             'voters' => Voter::with('user')->latest()->get(),
             'positions'=>Position::with('user')->latest()->get(),
             'candidates' => Candidate::with('user','position')->latest()->get(),
